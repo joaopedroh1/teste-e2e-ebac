@@ -13,8 +13,8 @@ context('Exercicio - Testes End-to-end - Fluxo de pedido', () => {
       Preenchendo todas opções no checkout
       E validando minha compra ao final */
 
-  it.only('Deve fazer o login corretamente - Usando Fixture', () => {
-    
+  it('Deve fazer o login corretamente - Usando Fixture', () => {
+    cy.visit('/minha-conta')
     cy.fixture('perfil').then(dados => {
       cy.get('#username').type(dados.usuario)
       cy.get('#password').type(dados.senha)
@@ -24,12 +24,19 @@ context('Exercicio - Testes End-to-end - Fluxo de pedido', () => {
   });
 
   describe('Funcionalidade: Produtos', () => {
-    beforeEach(() => {
-      produtosPage.buscarProdutos('')
+    beforeEach(() => {});
+
+    it('deve buscar produto com sucesso ', () => {
+      cy.visit('/produtos')
+      joaoProdutosPage.buscarProduto('Abominable Hoodie')
+      cy.get('.product_title').should('contain', 'Abominable Hoodie')
     });
 
-    it('deve selecionar 4 produtos da lista ', () => {
-      joaoProdutosPage.visitarProduto
+
+    it.only('deve selecionar 4 produtos da lista ', () => {
+      cy.visit('/produtos')
+      joaoProdutosPage.buscarProduto('Abominable Hoodie')
+      joaoProdutosPage.addProdutoCarrinho('Abominable Hoodie')
     });
 
   });  
