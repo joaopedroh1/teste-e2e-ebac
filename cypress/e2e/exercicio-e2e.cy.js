@@ -32,11 +32,10 @@ context('Exercicio - Testes End-to-end - Fluxo de pedido', () => {
       cy.get('.product_title').should('contain', 'Abominable Hoodie')
     });
 
-
-    it.only('deve selecionar 4 produtos da lista ', () => {
-      cy.visit('/produtos')
+    it('deve selecionar 4 produtos da lista ', () => {
       joaoProdutosPage.buscarProduto('Abominable Hoodie')
-      joaoProdutosPage.addProdutoCarrinho('Abominable Hoodie')
+      joaoProdutosPage.addProdutoCarrinho('M', 'Blue', 4)
+      cy.get('.woocommerce-message').should('contain', '4 × “Abominable Hoodie” foram adicionados no seu carrinho.') 
     });
 
   });  
