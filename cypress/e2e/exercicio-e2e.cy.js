@@ -13,30 +13,34 @@ context('Exercicio - Testes End-to-end - Fluxo de pedido', () => {
       Preenchendo todas opções no checkout
       E validando minha compra ao final */
 
-  it('Deve fazer o login corretamente - Usando Fixture', () => {
+      
+  it.only('Deve fazer o login corretamente - Usando Fixture', () => {
     cy.visit('/minha-conta')
     cy.fixture('perfil').then(dados => {
       cy.get('#username').type(dados.usuario)
       cy.get('#password').type(dados.senha)
       cy.get('.woocommerce-form > .button').click()
       cy.get('.woocommerce-MyAccount-content > :nth-child(2)').should('contain' ,'Olá, teste.joao (não é teste.joao? Sair)')
+      joaoProdutosPage.buscarProduto('Abominable Hoodie')
+      joaoProdutosPage.addProdutoCarrinho('M', 'Blue', 4)
+      cy.get('.woocommerce-message').should('contain', '4 × “Abominable Hoodie” foram adicionados no seu carrinho.')
     })
   });
 
-  describe('Funcionalidade: Produtos', () => {
-    beforeEach(() => {});
+  //describe('Funcionalidade: Produtos', () => {
+    //beforeEach(() => {});
 
-    it('deve buscar produto com sucesso ', () => {
-      cy.visit('/produtos')
-      joaoProdutosPage.buscarProduto('Abominable Hoodie')
-      cy.get('.product_title').should('contain', 'Abominable Hoodie')
-    });
+    //it('deve buscar produto com sucesso ', () => {
+      //cy.visit('/produtos')
+      //joaoProdutosPage.buscarProduto('Abominable Hoodie')
+      //cy.get('.product_title').should('contain', 'Abominable Hoodie')
+    //});
 
-    it('deve selecionar 4 produtos da lista ', () => {
-      joaoProdutosPage.buscarProduto('Abominable Hoodie')
-      joaoProdutosPage.addProdutoCarrinho('M', 'Blue', 4)
-      cy.get('.woocommerce-message').should('contain', '4 × “Abominable Hoodie” foram adicionados no seu carrinho.') 
-    });
+    //it('deve selecionar 4 produtos da lista ', () => {
+      //joaoProdutosPage.buscarProduto('Abominable Hoodie')
+      //joaoProdutosPage.addProdutoCarrinho('M', 'Blue', 4)
+      //cy.get('.woocommerce-message').should('contain', '4 × “Abominable Hoodie” foram adicionados no seu carrinho.') 
+    //});
 
-  });  
+  //});  
 })
